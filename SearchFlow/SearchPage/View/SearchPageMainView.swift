@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  SearchPageMainView.swift
 //  SearchFlow
 //
 //  Created by 老刁 on 2020/12/13.
 //
 
 import SwiftUI
-
-struct ContentView: View {
+//MARK:-  主页
+struct SearchPageMainView: View {
 
     init() {
         HttpServerStubs().setUp()
@@ -27,22 +27,23 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SearchPageMainView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             
-            ContentView()
+            SearchPageMainView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
             
-            ContentView()
+            SearchPageMainView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
         }
     }
 }
 
 
-
+//MARK:-  价格标签
 struct PriceChipsView: View {
+   
     let isInStock:Bool
     let price:Double
     var body: some View {
@@ -55,7 +56,7 @@ struct PriceChipsView: View {
             .cornerRadius(12.0)
     }
 }
-
+//MARK:-  商品列表
 struct InventoryListView: View {
     var stockData:InventoryList
     var categories:[String:[Inventory]]{
@@ -68,14 +69,12 @@ struct InventoryListView: View {
         self.stockData = stockData
     }
     var body: some View {
-        
         List {
             ForEach(categories.keys.sorted(), id:\.self) {
                 brand in
                 Section(header:Text(brand)
                             .frame(height:20)) {
                     ForEach(self.categories[brand]!) { item in
-                        
                         HStack {
                             VStack(alignment:.leading) {
                                 Text(item.type)
